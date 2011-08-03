@@ -1,0 +1,6 @@
+%article.canvas
+  %h2
+    Hello
+    /=# current_user.profile.username
+    / =# succeed "!" do
+    /   %fb:name{:uid => current_user.identifier, :useyou => "false"}

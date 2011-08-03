@@ -1,4 +1,18 @@
 Sfb::Application.routes.draw do
+  
+  get "top/index"
+
+  resource :canvas, :only => [:index, :authorize]
+  
+  # Connect Site
+  resource :facebook, :except => :create do
+    get :callback, :to => :create
+  end
+  
+  match 'canvas' => 'canvas#index'
+  
+  root :to => 'top#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +62,7 @@ Sfb::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+
 
   # See how all your routes lay out with "rake routes"
 
