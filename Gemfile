@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'fb_graph'
 gem 'haml'
 gem 'sass'
+gem 'rake', '0.8.7'
 
 
 # Gems used only for assets and not required
