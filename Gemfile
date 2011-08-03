@@ -9,6 +9,8 @@ gem 'sqlite3'
 gem 'fb_graph'
 gem 'haml'
 gem 'sass'
+gem 'execjs'
+gem 'therubyracer'
 
 
 # Gems used only for assets and not required
