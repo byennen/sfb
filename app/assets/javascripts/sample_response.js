@@ -1,6 +1,5 @@
 $(document).ready(function()
 {
-  alert('hello');
   $.ajax({
     type: "GET",
     url: "sample_response.xml",
