@@ -12,7 +12,6 @@ function parseXml(xml)
 {
   $(xml).find("GiftRegistryItem").each(function()
   {
-    $("#output").append('<img src="' + $(this).find("ImageURL").text() + '"/>');
-    $("#output").append('<p>' + $(this).find("ItemName").text() + '</p>');
+    $("#output").append('<li class="registryItem"><img src="' + $(this).find("ImageURL").text() + '"/><p>' + $(this).find("ItemName").text() + '</p></li>');
   });
 }
