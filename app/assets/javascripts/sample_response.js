@@ -71,9 +71,9 @@ SearsRegistry.fbook = function () {
 		$(xml).find('GiftRegistryItem').each(function() {
 			Registry[registryLen] = new RegistryItem( $(this) );
 			
-//			curLi = '<li class="registryItem"><img src="' + $(this).find('ImageURL').text() + '"/><p>' + $(this).find('ItemName').text() + '</p><div class="starrating"></div><p class="price">' + + '</p><p class="qtyNeeded">Quantity Needed:</p><a class="searsATC"></a></li>';
-			$('#registryList').append( Registry[registryLen].outputHTML().data({ regItem : registryLen }) );
-		   registryLen++;
+			curLi = Registry[registryLen].outputHTML();
+			$('#registryList').append( curLi.data({ regItem : registryLen }) );
+			registryLen++;
 		});
 	}
 	
