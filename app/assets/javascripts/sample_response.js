@@ -59,8 +59,8 @@ SearsRegistry.fbook = function () {
 	// Once xml is loaded
 	function parseXml(xml) {
 		var registryLen = 0;
-		$('#registryName').text( $(this).find('EventName').text() );
-		$('#eventDate').text( 'Event Date: ' + $(this).find('EventDate').text() );
+		$('#registryName').text( $(xml).find('EventName').text() );
+		$('#eventDate').text( 'Event Date: ' + $(xml).find('EventDate').text() );
 		$(xml).find('GiftRegistryItem').each(function() {
 			Registry[registryLen] = new RegistryItem( $(this) );
 			$('#registryList').append('<li class="registryItem"><img src="' + $(this).find('ImageURL').text() + '"/><p>' + $(this).find('ItemName').text() + '</p></li>');
@@ -79,6 +79,7 @@ SearsRegistry.fbook = function () {
 	});
 	
 	return {
+		/* Only for testing purposes */
 		SearsApiFuncs : SearsApiFuncs,
 		UserCart : UserCart,
 		Registry : Registry,
