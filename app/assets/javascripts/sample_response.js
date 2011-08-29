@@ -77,5 +77,12 @@ SearsRegistry.fbook = function () {
 	    success: parseXml
 	  });
 	});
+	
+	return {
+		SearsApiFuncs : SearsApiFuncs,
+		UserCart : UserCart,
+		Registry : Registry,
+		RegistryItem : RegistryItem
+	}
 
 }();
