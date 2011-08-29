@@ -58,7 +58,7 @@ SearsRegistry.fbook = function () {
 			qtyNeeded: this.qtyNeeded,
 			price: this.price,
 			starrating: this.starrating,
-			outputHML : outputHTML
+			outputHTML : outputHTML
 		}
 	}
 	
