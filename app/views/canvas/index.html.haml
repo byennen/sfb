@@ -1,5 +1,14 @@
 %article.canvas
-  %h2
-    Hello lance
-    %ul{:id => "output"}
+  %h2#registryName
+  %p#eventDate Event Date:
+  %p.sorting
+    %strong Sort By:
+    %select
+      %option Category
+      %option Prices Low to High
+      %option Prices High to Low
+      %option Top Rated
+      %option Quantity Needed High to Low
+      %option Quantity Needed Low to High
+  %ul#registryList
       
