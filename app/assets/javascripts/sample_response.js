@@ -21,9 +21,10 @@ SearsRegistry.fbook = function () {
 	
 	var UserCart = (function ( ) {
 		var theCart = [],
+			theCartLen = 0,
 		
 			addItemToCart = function ( productToAdd ) {
-				theCart[0] = productToAdd;
+				theCart[theCartLen++] = productToAdd;
 			}
 		
 		return {
@@ -47,23 +48,31 @@ SearsRegistry.fbook = function () {
 		this.price = itemXmlObj.find('ItemPrice').text();
 		this.starrating = null;
 		
+		this.outputHTML = function () {
+			return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
+		}
+		
 		return {
 			image: this.image,
 			itemName: this.itemName,
 			qtyNeeded: this.qtyNeeded,
 			price: this.price,
-			starrating: this.starrating
+			starrating: this.starrating,
+			outputHML : outputHTML
 		}
 	}
 	
 	// Once xml is loaded
 	function parseXml(xml) {
-		var registryLen = 0;
-		$('#registryName').text( $(xml).find('EventName').text() );
+		var registryLen = 0,
+			curLi;
+		$('#registryName').text( $(xml).find('EventDescription').text() );
 		$('#eventDate').text( 'Event Date: ' + $(xml).find('EventDate').text() );
 		$(xml).find('GiftRegistryItem').each(function() {
 			Registry[registryLen] = new RegistryItem( $(this) );
-			$('#registryList').append('<li class="registryItem"><img src="' + $(this).find('ImageURL').text() + '"/><p>' + $(this).find('ItemName').text() + '</p></li>');
+			
+//			curLi = '<li class="registryItem"><img src="' + $(this).find('ImageURL').text() + '"/><p>' + $(this).find('ItemName').text() + '</p><div class="starrating"></div><p class="price">' + + '</p><p class="qtyNeeded">Quantity Needed:</p><a class="searsATC"></a></li>';
+			$('#registryList').append( Registry[registryLen].outputHTML().data({ regItem : registryLen }) );
 		   registryLen++;
 		});
 	}
