@@ -23,7 +23,7 @@ SearsRegistry.fbook = function () {
 		var theCart = [],
 		
 			addItemToCart = function ( productToAdd ) {
-				theCart[] = productToAdd;
+				theCart[0] = productToAdd;
 			}
 		
 		return {
