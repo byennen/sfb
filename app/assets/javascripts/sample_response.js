@@ -72,7 +72,7 @@ SearsRegistry.fbook = function () {
 			Registry[registryLen] = new RegistryItem( $(this) );
 			
 			curLi = Registry[registryLen].outputHTML();
-			$('#registryList').append( curLi.data({ regItem : registryLen }) );
+			$('#registryList').append( $(curLi).data({ regItem : registryLen }) );
 			registryLen++;
 		});
 	}
