@@ -37,7 +37,7 @@ SearsRegistry.fbook = function () {
 	
 	// Constructor Function
 	var RegistryItem = function ( itemXmlObj ) {
-		var imageSize = '',
+		var imageSize = '?hei=40&wid=40',
 			prodDet = null;
 			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text() ),
 			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text() ),
