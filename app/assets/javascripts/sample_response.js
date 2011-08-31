@@ -10,7 +10,8 @@ SearsRegistry.fbook = function () {
 				return prodDetObj;
 			},
 			goToCheckout = function ( userCart ) {
-			
+				//add to cart from registry api call
+				//checkout redirect services api calls
 			
 			}
 		return {
@@ -72,7 +73,9 @@ SearsRegistry.fbook = function () {
 			Registry[registryLen] = new RegistryItem( $(this) );
 			
 			curLi = Registry[registryLen].outputHTML();
-			$('#registryList').append( $(curLi).data({ regItem : registryLen }) );
+			$(curLi).data({ regItem : registryLen })
+			$('#registryList').append( curLi );
+			console.log( registryLen );
 			registryLen++;
 		});
 	}
