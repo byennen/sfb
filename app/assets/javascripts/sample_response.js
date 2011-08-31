@@ -56,7 +56,7 @@ SearsRegistry.fbook = function () {
 		
 		this.addProdDet = function ( json ) {
 			// add the product details and the starrating
-			// add the starrating to the page (or call another function that does so
+			// add the starrating to the page (or call another function that does so)
 		
 		}
 		
