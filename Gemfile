@@ -40,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'capybara'
+  gem 'jasmine'
 end
 
 group :production do
