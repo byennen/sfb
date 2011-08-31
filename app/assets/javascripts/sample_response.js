@@ -37,7 +37,8 @@ SearsRegistry.fbook = function () {
 	
 	// Constructor Function
 	var RegistryItem = function ( itemXmlObj ) {
-		var prodDet = null;
+		var imageSize = '',
+			prodDet = null;
 			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text() ),
 			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text() ),
 			partNo = itemXmlObj.find('PartNumber').text(),
@@ -53,13 +54,20 @@ SearsRegistry.fbook = function () {
 			return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
 		}
 		
+		this.addProdDet = function ( json ) {
+			// add the product details and the starrating
+			// add the starrating to the page (or call another function that does so
+		
+		}
+		
 		return {
 			image: this.image,
 			itemName: this.itemName,
 			qtyNeeded: this.qtyNeeded,
 			price: this.price,
 			starrating: this.starrating,
-			outputHTML : this.outputHTML
+			outputHTML : this.outputHTML,
+			addProdDet : this.addProdDet
 		}
 	}
 	
@@ -72,9 +80,8 @@ SearsRegistry.fbook = function () {
 		$(xml).find('GiftRegistryItem').each(function() {
 			Registry[registryLen] = new RegistryItem( $(this) );
 			
-			curLi = Registry[registryLen].outputHTML();
-			$(curLi).data({ regItem : registryLen })
-			$('#registryList').append( curLi );
+			curLi = Registry[registryLen].outputHTML();	
+			$('#registryList').append( $(curLi).data({ regItem : registryLen }) );
 			console.log( registryLen );
 			registryLen++;
 		});
