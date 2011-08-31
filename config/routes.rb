@@ -1,7 +1,5 @@
 Sfb::Application.routes.draw do
   
-  get "top/index"
-
   resource :canvas, :only => [:index, :authorize]
   
   # Connect Site
