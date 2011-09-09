@@ -4,9 +4,7 @@ var SearsRegistry = SearsRegistry || {};
 SearsRegistry.fbook = function () {
 	// Objects in use
 	var SearsApiFuncs = (function () {
-	
-		
-		var getProdDet = function ( partNo ) {
+		var getProdDet = function ( regItem ) {
 				var prodDetObj;
 			
 				return prodDetObj;
@@ -42,11 +40,11 @@ SearsRegistry.fbook = function () {
 	})();
 	
 	var Registry = (function() {
-		var _registry = {},
-			_regLen = 0,
-			_registryPriceLow = null,
-			_registryRated = null,
-			_registryQuantityHigh = null,
+		var registry = {},
+			regLen = 0,
+			registryPriceLow = null,
+			registryRated = null,
+			registryQuantityHigh = null,
 			
 			/*
 				Adds a new Registry item to the list of items in the registry, with its catentryId as
@@ -55,8 +53,8 @@ SearsRegistry.fbook = function () {
 			addItem = function ( newItem ) {
 				var key = newItem.catentryId;
 				
-				_registry[key] = newItem;
-				_regLen++;
+				registry[key] = newItem;
+				regLen++;
 			},
 			
 			/*
@@ -64,7 +62,18 @@ SearsRegistry.fbook = function () {
 				and returns a copy of that item
 			*/
 			findItem = function ( itemID ) {
-				return _registry[itemID];
+				return registry[itemID];
+			},
+			
+			/* 
+				Uses the Sears API to load up all of the product details for the items in the Registry
+			*/
+			loadDetails = function ( ) {
+				var item;
+				
+				for ( item in registry ) {
+					registry[item].addProdDet();
+				}
 			},
 			
 			/* 
@@ -72,42 +81,42 @@ SearsRegistry.fbook = function () {
 				then stores that order in the appropriate variable and returns the sorted array. 
 			*/
 			sortRegistry = function ( sortType ) {
-				var _newSort = [],
-					_newSort_ind = 0;
+				var newSort = [],
+					newSort_ind = 0;
 					
 				switch ( sortType ) {
 					case 'price_low':
-						if ( _registryPriceLow == null ) {
-							// build up the sorted array and save it to _registryPriceLow
+						if ( registryPriceLow == null ) {
+							// build up the sorted array and save it to registryPriceLow
 						} 
-						// save the array specified by _registryPriceLow to _newsort
+						// save the array specified by _registryPriceLow to newsort
 
 						break;
 					case 'price_high':
-						if ( _registryPriceLow == null ) {
-							// build up the sorted array and save it to _registryPriceLow
+						if ( registryPriceLow == null ) {
+							// build up the sorted array and save it to registryPriceLow
 						}
-						// save the reverse of array specified by _registryPriceLow to _newsort
+						// save the reverse of array specified by registryPriceLow to newsort
 
 						break;
 					case 'top_rated':
-						if ( _registryRated == null ) {
-							// build up the sorted array and save it to _registryPriceLow
+						if ( registryRated == null ) {
+							// build up the sorted array and save it to registryPriceLow
 						}
-						// save the array specified by _registryPriceLow to _newsort
+						// save the array specified by registryPriceLow to newsort
 						break;
 					case 'quantity_high':
-						if ( _registryQuantityHigh == null ) {
+						if ( registryQuantityHigh == null ) {
 							// build up the sorted array and save it to _registryPriceLow
 						}
-						// save the array specified by _registryQuantityHigh to _newsort
+						// save the array specified by registryQuantityHigh to newsort
 					
 						break;
 					case 'quantity_low':
-						if ( _registryQuantityHigh == null ) {
-							// build up the sorted array and save it to _registryPriceLow
+						if ( registryQuantityHigh == null ) {
+							// build up the sorted array and save it to registryPriceLow
 						}
-						// save the reverse of array specified by _registryQuantityHigh to _newsort
+						// save the reverse of array specified by registryQuantityHigh to newsort
 					
 						break;
 					default:
@@ -125,15 +134,15 @@ SearsRegistry.fbook = function () {
 				default array.
 			*/
 			outputRegistry = function( itemList ) {
-				var _html = [],
+				var html = [],
 					i = 0,
 					item;
 				
-				for ( item in _registry ) {
-					_html[i++] = _registry[item].outputHTML();
+				for ( item in registry ) {
+					html[i++] = registry[item].outputHTML();
 				}
 
-				return _html.join('');	
+				return html.join('');	
 			};
 			
 		return {
@@ -142,44 +151,34 @@ SearsRegistry.fbook = function () {
 			sortRegistry : sortRegistry,
 			outputRegistry : outputRegistry,
 			//for debugging only
-			reg : _registry
+			reg : registry
 		}
 		
 	})();
 	
 	// Constructor Function
 	var RegistryItem = function ( itemXmlObj ) {
-		var imageSize = '?hei=40&wid=40',
+		var imageSize = '?hei=100&wid=100',
 			prodDet = null;
-			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text() ),
-			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text() ),
+			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text(), 10 ),
+			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text(), 10 ),
 			partNo = itemXmlObj.find('PartNumber').text();
 				
 		this.catentryId = itemXmlObj.find('CatentryID').text();
-		this.image = itemXmlObj.find('ImageURL').text().split('?')[0];
+		this.image = itemXmlObj.find('ImageURL').text().split('?')[0] + imageSize;
 		this.itemName = itemXmlObj.find('ItemName').text();
 		this.category = itemXmlObj.find('CategoryName').text();
 		this.qtyNeeded = (qtyBought < qtyReq) ? (qtyReq - qtyBought) : 0;
 		this.price = itemXmlObj.find('ItemPrice').text();
 		this.starrating = null;
-			
-		return {
-			image: this.image + imageSize,
-			itemName: this.itemName,
-			catentryId : this.catentryId,
-			category: this.category,
-			qtyNeeded: this.qtyNeeded,
-			price: this.price,
-			starrating: this.starrating
-		}
 	}
 	RegistryItem.prototype.outputHTML = function () {
 		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
-	}
+	};
 	RegistryItem.prototype.addProdDet = function ( json ) {
 		// add the product details and the starrating
 		// add the starrating to the page (or call another function that does so)	
-	}	
+	};
 	
 	// Once xml is loaded
 	function parseXml(xml) {
@@ -189,6 +188,7 @@ SearsRegistry.fbook = function () {
 			Registry.addItem( new RegistryItem( $(this) ) );			
 		});
 		$('#registryList').append( Registry.outputRegistry() );
+		Registry.loadDetails();
 		loadEventHandlers();
 	}
 	
