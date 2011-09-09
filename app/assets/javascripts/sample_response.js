@@ -9,9 +9,14 @@ SearsRegistry.fbook = function () {
 			
 				return prodDetObj;
 			},
+			
+			/*
+				Adds all of the items in the userCart array to the Sears shopping cart and sends the
+				user to the sears checkout experience.
+			*/
 			goToCheckout = function ( userCart ) {
 				//add to cart from registry api call
-				//checkout redirect services api calls
+				//checkout redirect services api call
 			
 			}
 		return {
@@ -32,7 +37,10 @@ SearsRegistry.fbook = function () {
 				
 				theCartLen--;
 			}
-		
+			
+			checkout = function ( ) {
+				SearsApiFuncs.goToCheckout( theCart )
+			}
 		return {
 			addItemToCart : addItemToCart,
 			deleteItemFromCart : deleteItemFromCart
@@ -127,6 +135,19 @@ SearsRegistry.fbook = function () {
 				
 				return _newSort;
 			},
+			
+			// sorts based on price, from low to high
+			sortPrice = function ( a, b ) {
+				return parseInt(a.price.split('$')[1], 10) - parseInt(b.price.split('$')[1], 10);
+			},
+			// sorts based on rating, from high to low
+			sortRating = function ( a, b ) {
+			
+			},
+			// sorts based on quantity needed, from high to low
+			sortQuantity = function ( a, b ) {
+				return b.qtyNeeded - a.qtyNeeded;
+			}
 		
 			/*
 				By default, prints out the html for all of the items in the Registry. Can be passed a different
@@ -158,7 +179,8 @@ SearsRegistry.fbook = function () {
 	
 	// Constructor Function
 	var RegistryItem = function ( itemXmlObj ) {
-		var imageSize = '?hei=100&wid=100',
+		var size = '215';
+			imageSize = '?hei=' + size + '&wid=' + size,
 			prodDet = null;
 			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text(), 10 ),
 			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text(), 10 ),
@@ -173,7 +195,13 @@ SearsRegistry.fbook = function () {
 		this.starrating = null;
 	}
 	RegistryItem.prototype.outputHTML = function () {
-		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
+		var atcDisabled = '';
+		
+		if ( this.qtyNeeded == 0 ) {
+			atcDisabled = ' disabled';
+		}
+		
+		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a href="javascript:;" class="searsATC' +  atcDisabled + '">Add to Cart</a></li>';
 	};
 	RegistryItem.prototype.addProdDet = function ( json ) {
 		// add the product details and the starrating
@@ -188,7 +216,7 @@ SearsRegistry.fbook = function () {
 			Registry.addItem( new RegistryItem( $(this) ) );			
 		});
 		$('#registryList').append( Registry.outputRegistry() );
-		Registry.loadDetails();
+//		Registry.loadDetails();
 		loadEventHandlers();
 	}
 	

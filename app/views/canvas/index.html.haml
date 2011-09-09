@@ -4,11 +4,11 @@
   %p.sorting
     %strong Sort By:
     %select
-      %option Category
-      %option Prices Low to High
-      %option Prices High to Low
-      %option Top Rated
-      %option Quantity Needed High to Low
-      %option Quantity Needed Low to High
+      %option{:value => "category" } Category
+      %option{:value => "price_low" } Prices Low to High
+      %option{:value => "price_high" } Prices High to Low
+      %option{:value => "top_rated" } Top Rated
+      %option{:value => "quantity_high" } Quantity Needed High to Low
+      %option{:value => "quantity_low" } Quantity Needed Low to High
   %ul#registryList
       
