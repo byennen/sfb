@@ -1,9 +1,11 @@
-// Namespacing everything
+	// Namespacing everything
 var SearsRegistry = SearsRegistry || {};
 
 SearsRegistry.fbook = function () {
 	// Objects in use
 	var SearsApiFuncs = (function () {
+	
+		
 		var getProdDet = function ( partNo ) {
 				var prodDetObj;
 			
@@ -33,7 +35,89 @@ SearsRegistry.fbook = function () {
 		}
 	})();
 	
-	var Registry = [];
+	var registry = (functions() {
+		var _registry = [],
+			_registryPriceLow = null,
+			_registryRated = null,
+			_registryQuantityHigh = null,
+			
+			/*
+				Adds a new item to the array of items in the registry
+			*/
+			addItem = function ( newItem ) {
+			
+			}
+			
+			/* 
+				Sorts the items in the registry according to the string in the sortType parameter,
+				then stores that order in the appropriate variable and returns the sorted array. 
+			*/
+			sortRegistry = function ( sortType ) {
+				var _newSort = [],
+					_newSort_ind = 0;
+					
+				switch ( sortType ) {
+					case 'price_low':
+						if ( _registryPriceLow == null ) {
+							// build up the sorted array and save it to _registryPriceLow
+						} 
+						// save the array specified by _registryPriceLow to _newsort
+
+						break;
+					case 'price_high':
+						if ( _registryPriceLow == null ) {
+							// build up the sorted array and save it to _registryPriceLow
+						}
+						// save the reverse of array specified by _registryPriceLow to _newsort
+
+						break;
+					case 'top_rated':
+						if ( _registryRated == null ) {
+							// build up the sorted array and save it to _registryPriceLow
+						}
+						// save the array specified by _registryPriceLow to _newsort
+						break;
+					case 'quantity_high':
+						if ( _registryQuantityHigh == null ) {
+							// build up the sorted array and save it to _registryPriceLow
+						}
+						// save the array specified by _registryQuantityHigh to _newsort
+					
+						break;
+					case 'quantity_low':
+						if ( _registryQuantityHigh == null ) {
+							// build up the sorted array and save it to _registryPriceLow
+						}
+						// save the reverse of array specified by _registryQuantityHigh to _newsort
+					
+						break;
+					case default:
+						// save the default _registry array to _newSort
+						break;
+					 
+				}
+				
+				return _newSort;
+			}
+		
+			/*
+				By default, prints out the html for all of the items in the Registry. Can be passed a different
+				array of Registry items as a parameter, in which case it will output that array instead of the
+				default array.
+			*/
+			outputRegistry = function( itemList ) {
+				var _html;
+
+				return html;	
+			}
+			
+		return {
+			addItem : addItem,
+			sortRegistry : sortRegistry,
+			outputRegistry : outputRegistry
+		}
+		
+	})();
 	
 	// Constructor Function
 	var RegistryItem = function ( itemXmlObj ) {
@@ -41,11 +125,12 @@ SearsRegistry.fbook = function () {
 			prodDet = null;
 			qtyReq = parseInt ( itemXmlObj.find('QuantityRequested').text() ),
 			qtyBought = parseInt ( itemXmlObj.find('QuantityBought').text() ),
-			partNo = itemXmlObj.find('PartNumber').text(),
-			catentryId = itemXmlObj.find('CatentryID').text();
-		
+			partNo = itemXmlObj.find('PartNumber').text();
+				
+		this.catentryId = itemXmlObj.find('CatentryID').text();
 		this.image = itemXmlObj.find('ImageURL').text().split('?')[0];
 		this.itemName = itemXmlObj.find('ItemName').text();
+		this.category = itemXmlObj.find('CategoryName').text();
 		this.qtyNeeded = (qtyBought < qtyReq) ? (qtyReq - qtyBought) : 0;
 		this.price = itemXmlObj.find('ItemPrice').text();
 		this.starrating = null;
@@ -63,6 +148,7 @@ SearsRegistry.fbook = function () {
 		return {
 			image: this.image,
 			itemName: this.itemName,
+			category: this.category,
 			qtyNeeded: this.qtyNeeded,
 			price: this.price,
 			starrating: this.starrating,
