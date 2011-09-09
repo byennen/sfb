@@ -1,4 +1,4 @@
-	// Namespacing everything
+// Namespacing everything
 var SearsRegistry = SearsRegistry || {};
 
 SearsRegistry.fbook = function () {
@@ -29,24 +29,43 @@ SearsRegistry.fbook = function () {
 			addItemToCart = function ( productToAdd ) {
 				theCart[theCartLen++] = productToAdd;
 			}
+			
+			deleteItemFromCart = function ( productToDelete ) {
+				
+				theCartLen--;
+			}
 		
 		return {
-			addItemToCart : addItemToCart
+			addItemToCart : addItemToCart,
+			deleteItemFromCart : deleteItemFromCart
 		}
 	})();
 	
-	var registry = (functions() {
-		var _registry = [],
+	var Registry = (function() {
+		var _registry = {},
+			_regLen = 0,
 			_registryPriceLow = null,
 			_registryRated = null,
 			_registryQuantityHigh = null,
 			
 			/*
-				Adds a new item to the array of items in the registry
+				Adds a new Registry item to the list of items in the registry, with its catentryId as
+				the key
 			*/
 			addItem = function ( newItem ) {
+				var key = newItem.catentryId;
+				
+				_registry[key] = newItem;
+				_regLen++;
+			},
 			
-			}
+			/*
+				Finds the item in the registry identified by the itemID string that is passed in
+				and returns a copy of that item
+			*/
+			findItem = function ( itemID ) {
+				return _registry[itemID];
+			},
 			
 			/* 
 				Sorts the items in the registry according to the string in the sortType parameter,
@@ -91,14 +110,14 @@ SearsRegistry.fbook = function () {
 						// save the reverse of array specified by _registryQuantityHigh to _newsort
 					
 						break;
-					case default:
+					default:
 						// save the default _registry array to _newSort
 						break;
 					 
 				}
 				
 				return _newSort;
-			}
+			},
 		
 			/*
 				By default, prints out the html for all of the items in the Registry. Can be passed a different
@@ -106,15 +125,24 @@ SearsRegistry.fbook = function () {
 				default array.
 			*/
 			outputRegistry = function( itemList ) {
-				var _html;
+				var _html = [],
+					i = 0,
+					item;
+				
+				for ( item in _registry ) {
+					_html[i++] = _registry[item].outputHTML();
+				}
 
-				return html;	
-			}
+				return _html.join('');	
+			};
 			
 		return {
 			addItem : addItem,
+			findItem : findItem,
 			sortRegistry : sortRegistry,
-			outputRegistry : outputRegistry
+			outputRegistry : outputRegistry,
+			//for debugging only
+			reg : _registry
 		}
 		
 	})();
@@ -134,43 +162,39 @@ SearsRegistry.fbook = function () {
 		this.qtyNeeded = (qtyBought < qtyReq) ? (qtyReq - qtyBought) : 0;
 		this.price = itemXmlObj.find('ItemPrice').text();
 		this.starrating = null;
-		
-		this.outputHTML = function () {
-			return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
-		}
-		
-		this.addProdDet = function ( json ) {
-			// add the product details and the starrating
-			// add the starrating to the page (or call another function that does so)
-		
-		}
-		
+			
 		return {
-			image: this.image,
+			image: this.image + imageSize,
 			itemName: this.itemName,
+			catentryId : this.catentryId,
 			category: this.category,
 			qtyNeeded: this.qtyNeeded,
 			price: this.price,
-			starrating: this.starrating,
-			outputHTML : this.outputHTML,
-			addProdDet : this.addProdDet
+			starrating: this.starrating
 		}
 	}
+	RegistryItem.prototype.outputHTML = function () {
+		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a class="searsATC"></a></li>';
+	}
+	RegistryItem.prototype.addProdDet = function ( json ) {
+		// add the product details and the starrating
+		// add the starrating to the page (or call another function that does so)	
+	}	
 	
 	// Once xml is loaded
 	function parseXml(xml) {
-		var registryLen = 0,
-			curLi;
 		$('#registryName').text( $(xml).find('EventDescription').text() );
 		$('#eventDate').text( 'Event Date: ' + $(xml).find('EventDate').text() );
 		$(xml).find('GiftRegistryItem').each(function() {
-			Registry[registryLen] = new RegistryItem( $(this) );
-			
-			curLi = Registry[registryLen].outputHTML();	
-			$('#registryList').append( $(curLi).data({ regItem : registryLen }) );
-			console.log( registryLen );
-			registryLen++;
+			Registry.addItem( new RegistryItem( $(this) ) );			
 		});
+		$('#registryList').append( Registry.outputRegistry() );
+		loadEventHandlers();
+	}
+	
+	/* Loads all of the event handlers for the page */
+	function loadEventHandlers ( ) {
+	
 	}
 	
 	// Load XML registry info once page loads and call parsing function
