@@ -210,8 +210,10 @@ SearsRegistry.fbook = function () {
 	
 	// Once xml is loaded
 	function parseXml(xml) {
+		var eventDate = $(xml).find('EventDate').text().split('-')
+		
 		$('#registryName').text( $(xml).find('EventDescription').text() );
-		$('#eventDate').text( 'Event Date: ' + $(xml).find('EventDate').text() );
+		$('#eventDate').text( 'Event Date: ' + eventDate[2] + '/' + eventDate[1] + '/' + eventDate[0] );
 		$(xml).find('GiftRegistryItem').each(function() {
 			Registry.addItem( new RegistryItem( $(this) ) );			
 		});
