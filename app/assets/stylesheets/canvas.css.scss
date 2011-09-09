@@ -1,3 +1,54 @@
 // Place all the styles related to the canvas controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+$atcbkgrnd: #eee;
+$disabledColor: #222;
+
+
+#registryList {
+	list-style-type: none;
+	
+	li {
+		// typography
+		
+		// colors
+		
+		// box model
+		width: 250px;
+		height: 370px;
+		float: left;
+		padding: 0 0 30px;
+		margin: 0 20px 20px 0;
+		position: relative;
+		
+		a.searsATC {
+			// typography
+			text-decoration: none;
+			text-align: center;
+			
+			// colors
+			background-color: $atcbkgrnd;			
+			
+			// box model
+			display: block;
+			padding: 10px 0;
+			position: absolute;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			
+			&:hover,
+			&:active {
+				background-color: darken( $atcbkgrnd, 20% );
+			}
+			
+			&.disabled {
+				background-color: $disabledColor;
+			}
+		}
+		
+	}
+	
+	
+}
