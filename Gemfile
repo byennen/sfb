@@ -9,7 +9,7 @@ gem 'sqlite3'
 gem 'fb_graph'
 gem 'haml'
 gem 'sass'
-gem 'rake', '0.8.7'
+gem 'rake', '0.9.2'
 
 
 # Gems used only for assets and not required
@@ -40,7 +40,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'database_cleaner'
   gem 'capybara'
-  gem 'jasmine'
+  gem 'jasmine', :group => [:development, :test]
 end
 
 group :production do

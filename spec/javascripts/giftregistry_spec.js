@@ -1,5 +1,7 @@
-describe("SearsGiftRegistry", function() {
-  it("loads all of the items in the registry", function() {
-    expect(RegistryItem.itemName).toEqual("someitem");
+describe("Registry Item", function() {
+  it("loads the items into the object", function() {
+    var item = new SearsRegistry.fbook.RegistryItem ( regXMLObj );
+  	
+//    expect(item.itemName).toEqual("someitem");
   });
 });

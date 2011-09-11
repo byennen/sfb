@@ -209,7 +209,9 @@ SearsRegistry.fbook = function () {
 	};
 	
 	// Once xml is loaded
+	var data;
 	function parseXml(xml) {
+		data = xml;
 		var eventDate = $(xml).find('EventDate').text().split('-')
 		
 		$('#registryName').text( $(xml).find('EventDescription').text() );
@@ -242,7 +244,8 @@ SearsRegistry.fbook = function () {
 		SearsApiFuncs : SearsApiFuncs,
 		UserCart : UserCart,
 		Registry : Registry,
-		RegistryItem : RegistryItem
+		RegistryItem : RegistryItem,
+		data : data
 	}
 
 }();
