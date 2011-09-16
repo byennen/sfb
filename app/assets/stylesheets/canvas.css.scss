@@ -45,6 +45,7 @@ $disabledColor: #222;
 			
 			&.disabled {
 				background-color: $disabledColor;
+				cursor: default;
 			}
 		}
 		

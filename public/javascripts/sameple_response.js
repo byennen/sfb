@@ -142,7 +142,7 @@ SearsRegistry.fbook = function () {
 			},
 			// sorts based on rating, from high to low
 			sortRating = function ( a, b ) {
-				return b.starrating - a.starrating;
+			
 			},
 			// sorts based on quantity needed, from high to low
 			sortQuantity = function ( a, b ) {
