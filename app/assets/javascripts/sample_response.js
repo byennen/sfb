@@ -27,10 +27,10 @@ SearsRegistry.fbook = function () {
 		},
 			
 		/*
-			Adds all of the items in the userCart array to the Sears shopping cart and sends the
+			Adds all of the items in the fbCart array to the Sears shopping cart and sends the
 			user to the sears checkout experience.
 		*/
-		goToCheckout = function ( userCart ) {
+		goToCheckout = function ( fbCart ) {
 			//add to cart from registry api call
 			//checkout redirect services api call
 /*			
@@ -56,11 +56,15 @@ SearsRegistry.fbook = function () {
 			theCartLen = 0,
 		
 			addItemToCart = function ( productToAdd ) {
+			  // need something here to check if it is already in the cart or don't allow them
+			  // to click again on something
 				theCart[theCartLen++] = productToAdd;
+				console.log(productToAdd);
 			}
 			
 			deleteItemFromCart = function ( productToDelete ) {
-				
+				// need to pop the item off of the array. maybe an object would be better for the cart?
+				$('a.addedToCart[rel="' + productToDelete + '"]').removeClass('addedToCart');
 				theCartLen--;
 			}
 			
@@ -264,7 +268,7 @@ SearsRegistry.fbook = function () {
 			atcDisabled = ' disabled';
 		}
 		
-		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a href="javascript:;" class="searsATC' +  atcDisabled + '">Add to Cart</a></li>';
+		return '<li class="registryItem"><img src="' + this.image + '"/><p>' + this.itemName + '</p><div class="starrating"></div><p class="price">' + this.price + '</p><p class="qtyNeeded">Quantity Needed: ' + this.qtyNeeded + '</p><a href="javascript:;" rel="' + this.catentryId + '" class="searsATC' +  atcDisabled + '">Add to Cart</a></li>';
 	};
 	RegistryItem.prototype.addProdDet = function ( json ) {
 		// add the product details and the starrating
@@ -290,6 +294,12 @@ SearsRegistry.fbook = function () {
 		// changing the way items are sorted
 		$('select.itemsort').change( function() {
 			Registry.sortRegistry( $(this).val() );
+		});
+		
+		$('a.searsATC').live( 'click', function() {
+		  var trigger = $(this);
+		  trigger.addClass('addedToCart');
+		  UserCart.addItemToCart( trigger.attr('rel') );
 		});
 	}
 	
