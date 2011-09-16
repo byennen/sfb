@@ -59,7 +59,6 @@ SearsRegistry.fbook = function () {
 			  // need something here to check if it is already in the cart or don't allow them
 			  // to click again on something
 				theCart[theCartLen++] = productToAdd;
-				console.log(productToAdd);
 			}
 			
 			deleteItemFromCart = function ( productToDelete ) {
@@ -277,7 +276,7 @@ SearsRegistry.fbook = function () {
 	
 	// Once xml is loaded
 	function parseXml(xml) {
-		var eventDate = $(xml).find('EventDate').text().split('-')
+		var eventDate = $(xml).find('EventDate').text().split('-');
 		
 		$('#registryName').text( $(xml).find('EventDescription').text() );
 		$('#eventDate').text( 'Event Date: ' + eventDate[2] + '/' + eventDate[1] + '/' + eventDate[0] );
@@ -298,8 +297,10 @@ SearsRegistry.fbook = function () {
 		
 		$('a.searsATC').live( 'click', function() {
 		  var trigger = $(this);
-		  trigger.addClass('addedToCart');
-		  UserCart.addItemToCart( trigger.attr('rel') );
+		  if ( ! trigger.hasClass('addedToCart') ) {
+  		    trigger.addClass('addedToCart');
+		    UserCart.addItemToCart( trigger.attr('rel') );
+		  }
 		});
 	}
 	
