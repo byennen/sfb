@@ -55,7 +55,7 @@
       <CategoryName><![CDATA[Dishes, Linens & Tableware]]></CategoryName>
       <ImageURL>http://s.shld.net/is/image/Sears/02470311000?hei=100&amp;wid=100</ImageURL>
       <SoldBy>sold by sears	    																		      										    	    					</SoldBy>
-      <QuantityRequested>				1            </QuantityRequested>
+      <QuantityRequested>				5            </QuantityRequested>
       <QuantityBought>			0			</QuantityBought>
       <PartNumber>																							02470311000P															</PartNumber>
       <CatentryID>91606379</CatentryID>
@@ -74,8 +74,8 @@
       <CategoryName><![CDATA[Small Kitchen Appliances]]></CategoryName>
       <ImageURL>http://s.shld.net/is/image/Sears/00869761000?hei=100&amp;wid=100</ImageURL>
       <SoldBy>sold by sears	    																		      										    	    					</SoldBy>
-      <QuantityRequested>				1            </QuantityRequested>
-      <QuantityBought>			0			</QuantityBought>
+      <QuantityRequested>				10            </QuantityRequested>
+      <QuantityBought>			2			</QuantityBought>
       <PartNumber>																		00869761000P																					</PartNumber>
       <CatentryID>40625779</CatentryID>
       <ItemAvailability>			WEB_STORE		</ItemAvailability>
@@ -93,8 +93,8 @@
       <CategoryName><![CDATA[Boys]]></CategoryName>
       <ImageURL>http://s.shld.net/is/image/Sears/00880004000?hei=100&amp;wid=100</ImageURL>
       <SoldBy>sold by sears	    																		      										    	    					</SoldBy>
-      <QuantityRequested>				1            </QuantityRequested>
-      <QuantityBought>			0			</QuantityBought>
+      <QuantityRequested>				7            </QuantityRequested>
+      <QuantityBought>			3			</QuantityBought>
       <PartNumber>																							00880004000P															</PartNumber>
       <CatentryID>40576834</CatentryID>
       <ItemAvailability>			WEB_STORE		</ItemAvailability>
@@ -112,8 +112,8 @@
       <CategoryName><![CDATA[Dishes, Linens & Tableware]]></CategoryName>
       <ImageURL>http://s.shld.net/is/image/Sears/02470311000?hei=100&amp;wid=100</ImageURL>
       <SoldBy>sold by sears	    																		      										    	    					</SoldBy>
-      <QuantityRequested>				1            </QuantityRequested>
-      <QuantityBought>			0			</QuantityBought>
+      <QuantityRequested>				2            </QuantityRequested>
+      <QuantityBought>			2			</QuantityBought>
       <PartNumber>																							02470311000P															</PartNumber>
       <CatentryID>91606380</CatentryID>
       <ItemAvailability>			WEB_STORE		</ItemAvailability>
@@ -131,8 +131,8 @@
       <CategoryName><![CDATA[Small Kitchen Appliances]]></CategoryName>
       <ImageURL>http://s.shld.net/is/image/Sears/00869761000?hei=100&amp;wid=100</ImageURL>
       <SoldBy>sold by sears	    																		      										    	    					</SoldBy>
-      <QuantityRequested>				1            </QuantityRequested>
-      <QuantityBought>			0			</QuantityBought>
+      <QuantityRequested>				5            </QuantityRequested>
+      <QuantityBought>			4			</QuantityBought>
       <PartNumber>																		00869761000P																					</PartNumber>
       <CatentryID>40625780</CatentryID>
       <ItemAvailability>			WEB_STORE		</ItemAvailability>
